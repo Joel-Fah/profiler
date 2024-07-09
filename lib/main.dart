@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:profiler/utils/constants.dart';
+import 'package:profiler/views/screens/auth/login.dart';
 import 'package:profiler/views/screens/home.dart';
 import 'package:get/get.dart';
+import 'package:profiler/views/screens/onboard.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,7 +17,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: GoogleFonts.urbanist().fontFamily,
         textTheme: GoogleFonts.urbanistTextTheme(),
-        scaffoldBackgroundColor: Color(0xFFFBFAFF),
         colorScheme: ColorScheme.fromSeed(seedColor: seedColor),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
@@ -25,9 +26,17 @@ class MyApp extends StatelessWidget {
           )
         )
       ),
-      initialRoute: '/',
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(1.15)),
+          child: child!,
+        );
+      },
+      initialRoute: OnboardPage.routeName,
       routes: {
-        '/': (context) => HomePage(),
+        HomePage.routeName: (context) => HomePage(),
+        OnboardPage.routeName: (context) => OnboardPage(),
+        LoginPage.routeName: (context) => LoginPage(),
       },
     );
   }

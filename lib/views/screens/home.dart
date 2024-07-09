@@ -1,33 +1,55 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:profiler/utils/constants.dart';
+import 'package:lucide_icons/lucide_icons.dart';
+import 'package:profiler/views/widgets/profiles.dart';
 
-class HomePage extends StatelessWidget {
+import '../widgets/offers.dart';
+
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
-  static String routeName = '/';
+
+  static const String routeName = '/';
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    final _tabPages = [
+      OffersFeed(),
+      SizedBox(),
+      ProfilesFeed(),
+      SizedBox()
+    ];
+
+    final _bottomNavBarItems = <BottomNavigationBarItem>[
+      const BottomNavigationBarItem(
+          icon: Icon(LucideIcons.lightbulb), label: "Recommended"),
+      const BottomNavigationBarItem(
+          icon: Icon(LucideIcons.flaskConical), label: 'SkillTest'),
+      const BottomNavigationBarItem(
+          icon: Icon(LucideIcons.users2), label: 'Profiles'),
+      const BottomNavigationBarItem(
+          icon: Icon(LucideIcons.userCircle2), label: 'Account'),
+    ];
+
+    final bottomNavBar = BottomNavigationBar(
+      items: _bottomNavBarItems,
+      currentIndex: currentIndex,
+      type: BottomNavigationBarType.fixed,
+      onTap: (value) {
+        setState(() {
+          currentIndex = value;
+        });
+      },
+    );
+
     return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-                "Hello , I'm finnally here. Let's flutterise",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: primaryColor.shade900
-              )
-            ),
-            Gap(20.0),
-            ElevatedButton(onPressed: (){}, child: Text('Hall meine Freunde', style: TextStyle(color: Colors.white),)),
-            Image.asset(logo)
-          ],
-        ),
-      ),
+      body: _tabPages[currentIndex],
+      bottomNavigationBar: bottomNavBar,
     );
   }
 }
