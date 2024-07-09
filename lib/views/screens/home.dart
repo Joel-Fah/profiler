@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:profiler/views/widgets/account.dart';
 import 'package:profiler/views/widgets/profiles.dart';
 
 import '../widgets/offers.dart';
+import '../widgets/skill_test.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,9 +22,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final _tabPages = [
       OffersFeed(),
-      SizedBox(),
+      SkillTestFeed(),
       ProfilesFeed(),
-      SizedBox()
+      AccountPage(),
     ];
 
     final _bottomNavBarItems = <BottomNavigationBarItem>[
